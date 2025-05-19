@@ -1,0 +1,27 @@
+2025-05-17 21:27:23,869 - INFO - Checking if Home page heading is displayed.
+2025-05-17 21:27:23,942 - INFO - Navigating to Login / Signup page...
+2025-05-17 21:27:25,332 - INFO - Successfully navigated to login/signup page...
+2025-05-17 21:27:25,332 - INFO - Verifying 'New User Signup!' page load.
+2025-05-17 21:27:25,395 - INFO - Registering username: testUserqwerty
+2025-05-17 21:27:25,750 - INFO - Registering email: testuser12345@tester.com
+2025-05-17 21:27:25,942 - INFO - Submitting registration form.
+2025-05-17 21:27:26,846 - INFO - Navigating to registration page.
+2025-05-17 21:27:26,848 - INFO - Verifying 'Enter Account Information' on submit registration
+2025-05-17 21:27:26,932 - INFO - Selecting title (gender).
+2025-05-17 21:27:27,423 - INFO - Title selected.
+2025-05-17 21:27:27,423 - INFO - Verifying name field pre-filled with: testUserqwerty
+2025-05-17 21:27:27,465 - INFO - Verifying email field pre-filled with: testuser12345@tester.com
+2025-05-17 21:27:27,513 - INFO - Entering password.
+2025-05-17 21:27:27,688 - INFO - Selecting birth date: Day=4, Month=4, Year=2000
+2025-05-17 21:27:28,111 - INFO - Selecting checkboxes for newsletter and special offers.
+2025-05-17 21:27:28,466 - INFO - Selecting checkboxes complete.
+2025-05-17 21:27:28,466 - INFO - Filling address details.
+2025-05-17 21:27:29,965 - INFO - Address details filled
+2025-05-17 21:27:29,976 - INFO - Submitting the registration form.
+2025-05-17 21:27:36,098 - INFO - Registration from submission complete.
+2025-05-17 21:27:36,098 - INFO - Verifying 'Account Created!' confirmation.
+2025-05-17 21:27:36,159 - INFO - Clicking continue post successfully account creation.
+2025-05-17 21:27:43,235 - INFO - Checking the logged in user.
+2025-05-17 21:27:43,344 - INFO - Deleting current account
+2025-05-17 21:27:44,815 - INFO - Current account deleted.
+2025-05-17 21:27:44,815 - INFO - Confirming account deleted

@@ -1,0 +1,23 @@
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
+class BasePage:
+    def __init__(self, driver):
+        self.driver = driver
+
+    def scroll_to_element(self, element):
+        self.driver.execute_script("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", element)
+
+    def scroll_until_visible(self, locator, timeout=10):
+        WebDriverWait(self.driver, timeout).until(
+            EC.visibility_of_element_located(locator)
+        )
+        element = self.driver.find_element(*locator)
+        self.scroll_to_element(element)
+
+
+
+////class RegistrationPage(BasePage):
+    def scroll_to_submit(self):
+        submit_btn = self.driver.find_element(By.ID, "submit")
+        self.scroll_to_element(submit_btn)
