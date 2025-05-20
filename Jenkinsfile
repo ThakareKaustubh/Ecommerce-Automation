@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     tools {
-        // Use the Allure CLI configured in Jenkins 
+        // Use the Allure CLI configured in Jenkins
         allure 'AllureCLI'
     }
 
@@ -41,6 +41,7 @@ pipeline {
 
         stage('Run Tests') {
             steps {
+                script{
                if(isUnix()){
                        sh '''
                        source venv/bin/activate
@@ -51,6 +52,7 @@ pipeline {
                      call venv\\Scripts\\activate
                      pytest --alluredir=allure-results
                      '''
+                     }
                      }
             }
         }
