@@ -2,16 +2,19 @@ pipeline {
     agent any
 
     tools {
-        // Use the Allure CLI configured in Jenkins
         allure 'AllureCLI'
     }
 
-    environment {
-        // Path to Python executable (adjust if needed)
-        PYTHON = isUnix()?'python3' : 'py'
-    }
-
     stages {
+        stage('Set Python Environment') {
+            steps {
+                script {
+                    // Set environment variable dynamically
+                    env.PYTHON = isUnix() ? 'python3' : 'py'
+                }
+            }
+        }
+
         stage('Checkout') {
             steps {
                 checkout scm
@@ -21,39 +24,40 @@ pipeline {
         stage('Setup Python environment') {
             steps {
                 script {
-                     if(isUnix()){
-                       sh'''
-                       ${PYTHON} -m venv venv
-                       source venv/bin/activate
-                       pip install --upgrade pip
-                       pip install -r requirements.txt
-                       '''
-                     }else{
-                         bat ''' ${PYTHON} -m venv venv
-                         call venv\\Scripts\\activate
-                         pip install --upgrade pip
-                         pip install -r requirements.txt
-                         '''
-                     }
+                    if (isUnix()) {
+                        sh '''
+                        ${PYTHON} -m venv venv
+                        source venv/bin/activate
+                        pip install --upgrade pip
+                        pip install -r requirements.txt
+                        '''
+                    } else {
+                        bat """
+                        ${PYTHON} -m venv venv
+                        call venv\\Scripts\\activate
+                        pip install --upgrade pip
+                        pip install -r requirements.txt
+                        """
+                    }
                 }
             }
         }
 
         stage('Run Tests') {
             steps {
-                script{
-               if(isUnix()){
-                       sh '''
-                       source venv/bin/activate
-                       pytest --alluredir=allure-results
-                       '''
-                     }else{
-                     bat '''
-                     call venv\\Scripts\\activate
-                     pytest --alluredir=allure-results
-                     '''
-                     }
-                     }
+                script {
+                    if (isUnix()) {
+                        sh '''
+                        source venv/bin/activate
+                        pytest --alluredir=allure-results
+                        '''
+                    } else {
+                        bat """
+                        call venv\\Scripts\\activate
+                        pytest --alluredir=allure-results
+                        """
+                    }
+                }
             }
         }
 
