@@ -2,13 +2,13 @@ pipeline {
     agent any
 
     tools {
-        // Use the Allure CLI configured in Jenkins (name must match exactly)
+        // Use the Allure CLI configured in Jenkins 
         allure 'AllureCLI'
     }
 
     environment {
         // Path to Python executable (adjust if needed)
-        PYTHON = isUnix()?"python3" : 'py'
+        PYTHON = isUnix()?'python3' : 'py'
     }
 
     stages {
