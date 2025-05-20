@@ -8,7 +8,7 @@ pipeline {
 
     environment {
         // Path to Python executable (adjust if needed)
-        PYTHON = "python"
+        PYTHON = isUnix()?"python3" : 'py'
     }
 
     stages {
@@ -18,31 +18,41 @@ pipeline {
             }
         }
 
-        stage('Setup Python') {
+        stage('Setup Python environment') {
             steps {
                 script {
-                    // Create virtual environment
-                    bat 'python -m venv venv' // Windows
-                    // sh 'python3 -m venv venv' // Linux/Mac alternative
-
-                    // Activate and install dependencies
-                    bat """
-                    call venv\\Scripts\\activate
-                    pip install --upgrade pip
-                    pip install -r requirements.txt
-                    """
-                    // For Linux/Mac, use sh and source venv/bin/activate
+                     if(isUnix()){
+                       sh "
+                       $(PYTHON) im venv venv
+                       source venv/bin/activate
+                       pip install --upgrade pip
+                       pip install -r requirements.txt
+                       "
+                     }else{
+                     bat "
+                     $(PYTHON) -m venv venv
+                     call venv\\Scripts\\activate
+                     pip install --upgrade pip
+                     pip install -r requirements.txt
+                     "
+                     }
                 }
             }
         }
 
         stage('Run Tests') {
             steps {
-                bat """
-                call venv\\Scripts\\activate
-                pytest --alluredir=allure-results
-                """
-                // For Linux/Mac, use sh and source activate accordingly
+               if(isUnix()){
+                       sh "
+                       source venv/bin/activate
+                       pytest --alluredir=allure-results
+                       "
+                     }else{
+                     bat "
+                     call venv\\Scripts\\activate
+                     pytest --alluredir=allure-results
+                     "
+                     }
             }
         }
 

@@ -1,6 +1,0 @@
-PyYaml
-selenium
-dotenv
-pytest
-allure-pytest
-xdist
