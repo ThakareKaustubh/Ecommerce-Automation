@@ -22,19 +22,17 @@ pipeline {
             steps {
                 script {
                      if(isUnix()){
-                       sh "
-                       $(PYTHON) im venv venv
+                       sh" $(PYTHON) im venv venv
                        source venv/bin/activate
                        pip install --upgrade pip
                        pip install -r requirements.txt
                        "
                      }else{
-                     bat "
-                     $(PYTHON) -m venv venv
-                     call venv\\Scripts\\activate
-                     pip install --upgrade pip
-                     pip install -r requirements.txt
-                     "
+                         bat "$(PYTHON) -m venv venv
+                         call venv\\Scripts\\activate
+                         pip install --upgrade pip
+                         pip install -r requirements.txt
+                         "
                      }
                 }
             }
