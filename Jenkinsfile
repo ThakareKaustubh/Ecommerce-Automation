@@ -22,17 +22,18 @@ pipeline {
             steps {
                 script {
                      if(isUnix()){
-                       sh""" $(PYTHON) im venv venv
+                       sh'''
+                       ${PYTHON} -m venv venv
                        source venv/bin/activate
                        pip install --upgrade pip
                        pip install -r requirements.txt
-                       """
+                       '''
                      }else{
-                         bat """ $(PYTHON) -m venv venv
+                         bat ''' ${PYTHON} -m venv venv
                          call venv\\Scripts\\activate
                          pip install --upgrade pip
                          pip install -r requirements.txt
-                         """
+                         '''
                      }
                 }
             }
@@ -41,15 +42,15 @@ pipeline {
         stage('Run Tests') {
             steps {
                if(isUnix()){
-                       sh """
+                       sh '''
                        source venv/bin/activate
                        pytest --alluredir=allure-results
-                       """
+                       '''
                      }else{
-                     bat """
+                     bat '''
                      call venv\\Scripts\\activate
                      pytest --alluredir=allure-results
-                     """
+                     '''
                      }
             }
         }
