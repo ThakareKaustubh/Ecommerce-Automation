@@ -20,6 +20,7 @@ An end-to-end automation framework for testing an e-commerce web application usi
 
 
 **Tech Stack**
+
 Programming Language: Python
 
 Automation Tool: Selenium WebDriver
@@ -33,6 +34,7 @@ Continuous Integration: Jenkins
 Reporting Tool: Allure
 
 **Project Structure**
+
 Ecommerce-Automation/
 
 ├── config/             # Configuration files and environment settings
@@ -56,7 +58,9 @@ Ecommerce-Automation/
 
 
 **🚀 Getting Started**
+
 **Prerequisites**
+
 Python 3.7 or higher
 
 Google Chrome browser
@@ -66,6 +70,7 @@ Follow the official installation guide: https://allurereport.org/docs/#_installi
 
 
 **Installation**
+
 Clone the repository:
 1. git clone https://github.com/ThakareKaustubh/Ecommerce-Automation.git
 2. cd Ecommerce-Automation
@@ -89,7 +94,8 @@ pytest tests/test_login.py
 3. Run tests with Allure
 pytest --alluredir=reports/
 
--Generate and open the report:
+Generate and open the report:
+
 allure serve reports/
 
 
