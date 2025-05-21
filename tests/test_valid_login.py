@@ -1,5 +1,3 @@
-import time
-
 import allure
 from pages.login_page import LoginPage
 from utils.create_user_api import create_user_from_api
