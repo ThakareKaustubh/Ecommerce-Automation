@@ -19,7 +19,7 @@ An end-to-end automation framework for testing an e-commerce web application usi
 5. Configuration Management: Utilizes pytest.ini and config/ directory for managing test configurations and environment settings.
 
 
-**TECH STACK**
+**📌 TECH STACK**
 
 Programming Language: Python
 
@@ -33,7 +33,7 @@ Continuous Integration: Jenkins
 
 Reporting Tool: Allure
 
-**PROJECT STRUCTURE**
+**📌 PROJECT STRUCTURE**
 
 Ecommerce-Automation/
 
@@ -59,7 +59,7 @@ Ecommerce-Automation/
 
 **🚀 GETTING STARTED**
 
-**PREREQUISITES**
+**📌 PREREQUISITES**
 
 Python 3.7 or higher
 
@@ -69,7 +69,7 @@ Allure Commandline (for generating reports) - Setup and configured
 Follow the official installation guide: https://allurereport.org/docs/#_installing_a_commandline
 
 
-**INSTALLATION**
+**📌 INSTALLATION**
 
 Clone the repository:
 1. git clone https://github.com/ThakareKaustubh/Ecommerce-Automation.git
@@ -84,7 +84,7 @@ Clone the repository:
 
 
 
-**RUNNING TESTS**
+**📌 RUNNING TESTS**
 1. Execute All Tests
 pytest
 
@@ -101,7 +101,7 @@ allure serve reports/
 
 
 
-**CONFIGURATION**
+**📌 CONFIGURATION**
 1. pytest.ini: Contains Pytest configurations.
 
 2. config/: Directory for environment-specific settings and configurations.
