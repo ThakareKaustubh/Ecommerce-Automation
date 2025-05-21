@@ -1,6 +1,6 @@
 registration_data:
-  username: "testUserqwerty"
-  email: "testuser12345@tester.com"
+  username: "testUserunique1234"
+  email: "testuser12345543221@tester.com"
   password: "SecurePass!123"
   birthdate:
     day: "4"

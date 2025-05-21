@@ -4,8 +4,10 @@ from utils.logger import get_logger
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import Select
 
-class RegistrationPage:
+
+class RegistrationPage(BasePage):
     def __init__(self, driver):
+        super().__init__(driver)
         self.driver = driver
         self.logger = get_logger(self.__class__.__name__)
         self.wait = WaitUtils(driver, timeout=10)
@@ -32,9 +34,6 @@ class RegistrationPage:
         self.submit = (By.XPATH, "//button[@data-qa='create-account']")
         self.verify_complete = (By.XPATH, "//b[text()='Account Created!']")
         self.continue_btn = (By.XPATH, "//a[@data-qa='continue-button']")
-        self.verify_user = (By.XPATH,"//li[a[contains(text(), 'Logged in as')]]")
-        self.del_acc = (By.CSS_SELECTOR, "a[href='/delete_account']")
-        self.del_cnf = (By.XPATH, "//b[contains(text(),'Account Deleted!')]")
 
     def select_title(self, title):
         self.logger.info("Selecting title (gender).")
@@ -72,7 +71,8 @@ class RegistrationPage:
         self.wait.wait_for_element_to_be_clickable(self.chk_box2).click()
         self.logger.info("Selecting checkboxes complete.")
 
-    def enter_address_details(self, fname, lname, company, address1, address2, country_name, state_name, city_name, zip, mob_number):
+    def enter_address_details(self, fname, lname, company, address1, address2, country_name, state_name, city_name, zip,
+                              mob_number):
         self.logger.info("Filling address details.")
         self.wait.wait_for_element_to_be_visible(self.first_name).send_keys(fname)
         self.wait.wait_for_element_to_be_visible(self.last_name).send_keys(lname)
@@ -98,20 +98,6 @@ class RegistrationPage:
     def continue_post_reg(self):
         self.logger.info("Clicking continue post successfully account creation.")
         return self.wait.wait_for_element_to_be_clickable(self.continue_btn).click()
-
-    def check_logged_in_user(self):
-        self.logger.info("Checking the logged in user.")
-        return self.wait.wait_for_element_to_be_clickable(self.verify_user).text
-
-    def delete_created_account(self):
-        self.logger.info("Deleting current account")
-        del_account = self.wait.wait_for_element_to_be_clickable(self.del_acc)
-        del_account.click()
-        self.logger.info("Current account deleted.")
-
-    def delete_account_confirmation(self):
-        self.logger.info("Confirming account deleted")
-        return self.wait.wait_for_element_to_be_visible(self.del_cnf).text == "ACCOUNT DELETED!"
 
     def scroll_down(self, pixels=500):
         self.driver.execute_script(f"window.scrollBy(0, {pixels});")

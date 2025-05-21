@@ -1,1 +1,65 @@
 .env
+/venv
+# Byte-compiled / optimized / DLL files
+**/__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+venv/
+.venv/
+ENV/
+env/
+.ENV/
+.env/
+
+# Pytest cache
+.pytest_cache/
+
+# MyPy cache
+.mypy_cache/
+
+# Coverage reports
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+htmlcov/
+
+# Logs
+*.log
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
+
+# IDEs and editors
+.vscode/
+.idea/
+*.iml
+
+# Python packaging
+build/
+dist/
+*.egg-info/
+
+# dotenv secrets
+.env
+.env.*
+
+# SQLite or other dev DBs
+*.sqlite3
+*.db
+
+# Test results
+test-output/
+
+# OS-specific
+.DS_Store
+Thumbs.db
+# Allure reports
+allure-report/
+allure-results/
+

@@ -14,9 +14,9 @@ def test_user_registration(driver_setup, base_url, test_data):
     driver.get(base_url)
     registrationpage = RegistrationPage(driver)
 
-    with allure.step("Verify login page loaded"):
+    with allure.step("Verify Home page loaded"):
         loginpage = LoginPage(driver)
-        assert loginpage.check_loginpage_load(), "Login Page did not load"
+        assert loginpage.check_page_load(), "Home Page did not load"
 
     with allure.step("Navigate to login/signup page"):
         loginpage.goto_login_signup_page()
@@ -27,6 +27,7 @@ def test_user_registration(driver_setup, base_url, test_data):
         loginpage.register_email(user_data["email"])
         loginpage.submit_registration()
         assert loginpage.verify_registration_submit_text(), "Registration submit failed"
+
     with allure.step("Fill and verify registration form"):
         registrationpage.select_title(user_data["title"])
         registrationpage.verify_name(user_data["username"])
@@ -57,7 +58,7 @@ def test_user_registration(driver_setup, base_url, test_data):
 
     with allure.step("Verify logged-in username"):
         registrationpage.continue_post_reg()
-        assert f"{user_data['username']}" in registrationpage.check_logged_in_user(), "Login username mismatch"
+        assert f"{user_data['username']}" == registrationpage.check_logged_in_user(), "Login username mismatch"
 
     with allure.step("Verify and delete new account"):
         registrationpage.delete_created_account()

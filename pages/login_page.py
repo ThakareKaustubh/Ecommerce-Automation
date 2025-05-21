@@ -18,8 +18,9 @@ class LoginPage(BasePage):
         self.home_heading = (By.XPATH, "//a[contains(text(), 'Home')]")
         self.verify_page = (By.XPATH, "//h2[contains(text(), 'New User Signup!')]")
         self.verify_submit_reg = (By.XPATH, "//b[contains(text(),'Enter Account Information')]")
+        self.login_page_load = (By.XPATH, "//h2[contains(text(), 'Login to your account')]")
 
-    def check_loginpage_load(self):
+    def check_page_load(self):
         try:
             self.logger.info("Checking if Home page heading is displayed.")
             return self.wait.wait_for_element_to_be_visible(self.home_heading)
@@ -32,12 +33,14 @@ class LoginPage(BasePage):
         username_field = self.wait.wait_for_element_to_be_clickable(self.login_email)
         username_field.clear()
         username_field.send_keys(login_mail)
+        self.logger.info("Credentials entered - Email")
 
     def enter_password(self, password):
         self.logger.info("Entering login password.")
         password_field = self.wait.wait_for_element_to_be_visible(self.login_pass)
         password_field.clear()
         password_field.send_keys(password)
+        self.logger.info("Credentials entered - Password")
 
     def register_username(self, username):
         self.logger.info(f"Registering username: {username}")
@@ -58,6 +61,7 @@ class LoginPage(BasePage):
 
     def submit_login(self):
         self.logger.info("Submitting login form.")
+        self.scroll_until_visible(self.login_btn)
         self.wait.wait_for_element_to_be_visible(self.login_btn).click()
 
     def verify_new_user_signup(self):
@@ -66,4 +70,9 @@ class LoginPage(BasePage):
 
     def verify_registration_submit_text(self):
         self.logger.info("Verifying 'Enter Account Information' on submit registration")
+
         return self.wait.wait_for_element_to_be_clickable(self.verify_submit_reg).text == "ENTER ACCOUNT INFORMATION"
+
+    def verify_login_to_acc_is_visible(self):
+        self.logger.info("Verifying 'Login to account' is visible")
+        return self.wait.wait_for_element_presence(self.login_page_load).text == "Login to your account"

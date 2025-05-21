@@ -3,3 +3,4 @@ pytest
 allure-pytest
 pyyaml
 xdist
+requests

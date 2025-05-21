@@ -1,16 +1,14 @@
 import yaml
 import os
-from dotenv import load_dotenv
 
-load_dotenv()  # Load .env variables
+def load_config(file_name="config.yaml"):
+    current_dir = os.path.dirname(__file__)
+    config_path = os.path.join(current_dir, '..', 'config', file_name)
+    config_path = os.path.abspath(config_path)
 
+    if not os.path.exists(config_path):
+        raise FileNotFoundError(f"Config file not found at: {config_path}")
 
-def load_config(file_path="config\config.yaml"):
-    with open(file_path, "r") as f:
+    with open(config_path, "r") as f:
         config = yaml.safe_load(f)
-    # Add environment-based credentials
-    config["credentials"] = {
-        "username": os.getenv("USERNAME"),
-        "password": os.getenv("PASSWORD")
-    }
     return config

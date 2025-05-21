@@ -10,7 +10,7 @@ from selenium import webdriver
 @pytest.fixture(scope='function')
 def driver_setup():
     chrome_options = Options()
-    chrome_options.add_argument("--headless")  # Enable headless mode
+    # chrome_options.add_argument("--headless")  # Enable headless mode
     chrome_options.add_argument("--disable-gpu")  # Fixes issues in some systems
     chrome_options.add_argument("--window-size=1920x1080")  # Ensure elements are visible
     chrome_options.add_argument("--disable-popup-blocking")  # Disable popup blocking
@@ -48,15 +48,12 @@ def config():
 def base_url(config):
     return config["base_url"]
 
-@pytest.fixture(scope="session")
-def credentials():
-    return{
-        "username" : config["credentials"]["username"],
-        "password" :  config["credentials"]["password"]
-    }
 
 @pytest.fixture(scope="session")
 def test_data():
     # Load the data from the YAML file
-    with open("config/test_data.yaml", "r") as file:
+    current_dir = os.path.dirname(__file__)
+    config_path = os.path.join(current_dir, '..', 'config', 'test_data.yaml')
+    config_path = os.path.abspath(config_path)
+    with open(config_path, "r") as file:
         return yaml.safe_load(file)
