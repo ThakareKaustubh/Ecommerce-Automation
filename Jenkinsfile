@@ -1,5 +1,9 @@
 pipeline {
     agent any
+    parameters {
+        choice(name: 'BROWSER', choices: ['chrome', 'firefox'], description: 'Choose browser')
+        booleanParam(name: 'HEADLESS', defaultValue: false, description: 'Run tests in headless mode')
+    }
     tools {
         allure 'AllureCLI'
     }
@@ -49,23 +53,26 @@ pipeline {
                 }
             }
         }
-        stage('Run Tests') {
-            steps {
-                script {
-                    if (isUnix()) {
-                        sh '''
-                        source venv/bin/activate
-                        pytest -v --cache-clear --alluredir=allure-results
-                        '''
-                    } else {
-                        bat """
-                        call venv\\Scripts\\activate
-                        pytest -v --cache-clear --alluredir=allure-results
-                        """
-                    }
-                }
+       stage('Run Tests with Allure') {
+    steps {
+        script {
+            def headlessOption = params.HEADLESS ? "--headless" : ""
+            def browser = params.BROWSER
+
+            if (isUnix()) {
+                sh """
+                    source venv/bin/activate
+                    pytest --browser=${browser} ${headlessOption} -v --cache-clear --alluredir=allure-results
+                """
+            } else {
+                bat """
+                    call venv\\Scripts\\activate
+                    pytest --browser=${browser} ${headlessOption} -v --cache-clear --alluredir=allure-results
+                """
             }
         }
+    }
+}
         stage('Publish Allure Report') {
             steps {
                 allure([

@@ -1,26 +1,21 @@
 import os
-
 import allure
 import yaml
-from utils.config_loader import load_config
-from selenium.webdriver.chrome.options import Options
 import pytest
-from selenium import webdriver
+from utils.config_loader import load_config
+from utils.driver_factory import DriverFactory
 
+
+
+def pytest_addoption(parser):
+    parser.addoption("--browser", action="store", default="chrome", help="Browser to use: chrome or firefox")
+    parser.addoption("--headless", action="store_true", help="Run in headless mode")
 
 @pytest.fixture(scope='function')
-def driver_setup():
-    chrome_options = Options()
-    chrome_options.add_argument("--headless")  # Enable headless mode
-    chrome_options.add_argument("--disable-gpu")  # Fixes issues in some systems
-    chrome_options.add_argument("--window-size=1920x1080")  # Ensure elements are visible
-    chrome_options.add_argument("--disable-popup-blocking")  # Disable popup blocking
-    chrome_options.add_argument("--no-sandbox")  # Bypass OS security (useful in Docker)
-    chrome_options.add_argument("--disable-dev-shm-usage")  # Prevent shared memory issues
-    chrome_options.add_argument("--use-angle=default")
-    chrome_options.add_argument("--start-maximized")  # Start maximized
-
-    driver = webdriver.Chrome(chrome_options)
+def driver_setup(request):
+    browser = request.config.getoption("--browser")
+    headless = request.config.getoption("--headless")
+    driver = DriverFactory.get_driver(browser_name=browser, headless=headless)
     driver.implicitly_wait(3)
     yield driver
     driver.quit()
