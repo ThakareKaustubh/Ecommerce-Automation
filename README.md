@@ -34,14 +34,23 @@ Reporting Tool: Allure
 
 **Project Structure**
 Ecommerce-Automation/
+
 ├── config/             # Configuration files and environment settings
+
 ├── pages/              # Page Object Model classes for web pages
+
 ├── tests/              # Test cases organized by functionality
+
 ├── utils/              # Utility functions and helper methods
+
 ├── reports/            # Generated test reports (e.g., Allure results)
+
 ├── requirements.txt    # Python dependencies
+
 ├── pytest.ini          # Pytest configuration
+
 ├── Jenkinsfile         # Jenkins pipeline configuration
+
 └── README.md           # Project documentation
 
 
