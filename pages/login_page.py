@@ -1,6 +1,8 @@
 from pages.base_page import BasePage
 from utils.wait_utils import WaitUtils
 from selenium.webdriver.common.by import By
+import random
+import string
 
 
 class LoginPage(BasePage):
@@ -19,6 +21,7 @@ class LoginPage(BasePage):
         self.verify_page = (By.XPATH, "//h2[contains(text(), 'New User Signup!')]")
         self.verify_submit_reg = (By.XPATH, "//b[contains(text(),'Enter Account Information')]")
         self.login_page_load = (By.XPATH, "//h2[contains(text(), 'Login to your account')]")
+        self.invalid_login_msg = (By.XPATH, "//p[contains(text(),'Your email or password is incorrect!')]")
 
     def check_page_load(self):
         try:
@@ -76,3 +79,18 @@ class LoginPage(BasePage):
     def verify_login_to_acc_is_visible(self):
         self.logger.info("Verifying 'Login to account' is visible")
         return self.wait.wait_for_element_presence(self.login_page_load).text == "Login to your account"
+
+    def get_invalid_creds(self):
+        local = ''.join(random.choices(string.ascii_lowercase + string.digits, k=8))
+        domain = ''.join(random.choices(string.ascii_lowercase, k=5))
+        tld = random.choice(['com', 'net', 'org', 'io', 'co'])
+        email = f"{local}@{domain}.{tld}"
+
+        password_chars = string.ascii_letters + string.digits + string.punctuation
+        password = ''.join(random.choices(password_chars, k=12))
+
+        return email, password
+
+    def verify_invalid_login(self):
+        self.logger.info("Getting invalid login message.")
+        return self.wait.wait_for_element_to_be_visible(self.invalid_login_msg).text

@@ -3,7 +3,7 @@ from pages.login_page import LoginPage
 from utils.create_user_api import create_user_from_api
 
 
-@allure.feature(" User Login")
+@allure.feature("User Login")
 @allure.story("Valid User login Flow")
 @allure.severity(allure.severity_level.CRITICAL)
 def test_login_using_valid_credentials(driver_setup, base_url):
