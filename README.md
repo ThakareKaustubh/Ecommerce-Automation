@@ -6,7 +6,7 @@ Author: Kaustubh Thakare
 An end-to-end automation framework for testing an e-commerce web application using Selenium WebDriver, Pytest, and the Page Object Model (POM) design pattern. This framework supports scalable test development, integrates with Jenkins for CI/CD, and generates detailed Allure Reports for test results.
 
 
-**📌 Features**
+**📌 FEATURES**
 
 1. Modular Test Design: Implements the Page Object Model for maintainable and reusable code.
 
@@ -19,7 +19,7 @@ An end-to-end automation framework for testing an e-commerce web application usi
 5. Configuration Management: Utilizes pytest.ini and config/ directory for managing test configurations and environment settings.
 
 
-**Tech Stack**
+**TECH STACK**
 
 Programming Language: Python
 
@@ -33,7 +33,7 @@ Continuous Integration: Jenkins
 
 Reporting Tool: Allure
 
-**Project Structure**
+**PROJECT STRUCTURE**
 
 Ecommerce-Automation/
 
@@ -57,9 +57,9 @@ Ecommerce-Automation/
 
 
 
-**🚀 Getting Started**
+**🚀 GETTING STARTED**
 
-**Prerequisites**
+**PREREQUISITES**
 
 Python 3.7 or higher
 
@@ -69,7 +69,7 @@ Allure Commandline (for generating reports) - Setup and configured
 Follow the official installation guide: https://allurereport.org/docs/#_installing_a_commandline
 
 
-**Installation**
+**INSTALLATION**
 
 Clone the repository:
 1. git clone https://github.com/ThakareKaustubh/Ecommerce-Automation.git
@@ -84,7 +84,7 @@ Clone the repository:
 
 
 
-**Running Tests**
+**RUNNING TESTS**
 1. Execute All Tests
 pytest
 
@@ -101,7 +101,7 @@ allure serve reports/
 
 
 
-**Configuration**
+**CONFIGURATION**
 1. pytest.ini: Contains Pytest configurations.
 
 2. config/: Directory for environment-specific settings and configurations.
