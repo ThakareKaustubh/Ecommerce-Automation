@@ -7,8 +7,6 @@ from pages.login_page import LoginPage
 @allure.severity(allure.severity_level.CRITICAL)
 def test_login_using_invalid_credentials(driver_setup, base_url):
     driver = driver_setup
-    loginpage = LoginPage(driver)
-    invalid_email, invalid_password = loginpage.get_invalid_creds()
     driver.get(base_url)
 
     with allure.step("Verify Home page loaded"):
@@ -20,6 +18,7 @@ def test_login_using_invalid_credentials(driver_setup, base_url):
         assert loginpage.verify_login_to_acc_is_visible(), "Login to your account not visible"
 
     with allure.step("Entering invalid credentials"):
+        invalid_email, invalid_password = loginpage.get_invalid_creds()
         loginpage.enter_username(invalid_email)
         loginpage.enter_password(invalid_password)
         loginpage.submit_login()
