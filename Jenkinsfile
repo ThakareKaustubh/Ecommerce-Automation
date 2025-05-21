@@ -10,7 +10,7 @@ pipeline {
             steps {
                 script {
                     // Set environment variable dynamically
-                    env.PYTHON = isUnix() ? 'python3' : 'py'
+                    env.PYTHON = isUnix() ? 'python3' : 'python'
                 }
             }
         }
