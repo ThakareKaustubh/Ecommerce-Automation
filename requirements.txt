@@ -4,3 +4,4 @@ allure-pytest
 pyyaml
 xdist
 requests
+pytest-order

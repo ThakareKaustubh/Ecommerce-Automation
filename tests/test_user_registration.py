@@ -7,6 +7,7 @@ import allure
 @allure.feature("User Registration")
 @allure.story("New User Signup Flow")
 @allure.severity(allure.severity_level.CRITICAL)
+@pytest.mark.order(1)
 def test_user_registration(driver_setup, base_url, test_data):
     user_data = test_data["registration_data"]
 

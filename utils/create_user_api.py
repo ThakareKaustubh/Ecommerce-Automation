@@ -3,9 +3,9 @@ import os
 import requests
 
 def load_registration_data():
-    file_path = os.path.join(os.path.dirname(__file__), '..', 'config', 'test_data.yaml')
+    file_path = os.path.join(os.path.dirname(__file__), '..', 'config', 'test_login.yaml')
     with open(file_path, 'r') as file:
-        return yaml.safe_load(file)["registration_data"]
+        return yaml.safe_load(file)["login_data"]
 
 def create_user_from_api(url):
     data = load_registration_data()
