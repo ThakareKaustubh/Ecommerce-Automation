@@ -7,6 +7,7 @@ from selenium.webdriver.chrome.options import Options
 import pytest
 from selenium import webdriver
 
+
 @pytest.fixture(scope='function')
 def driver_setup():
     chrome_options = Options()
@@ -44,16 +45,17 @@ def pytest_runtest_makereport(item, call):
 def config():
     return load_config()
 
+
 @pytest.fixture(scope="session")
 def base_url(config):
     return config["base_url"]
 
 
 @pytest.fixture(scope="session")
-def test_data():
+def data_test():
     # Load the data from the YAML file
     current_dir = os.path.dirname(__file__)
-    config_path = os.path.join(current_dir, '..', 'config', 'test_data.yaml')
+    config_path = os.path.join(current_dir, '..', 'config', 'data_test.yaml')
     config_path = os.path.abspath(config_path)
     with open(config_path, "r") as file:
         return yaml.safe_load(file)

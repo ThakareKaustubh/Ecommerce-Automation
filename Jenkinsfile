@@ -1,26 +1,33 @@
 pipeline {
     agent any
-
     tools {
         allure 'AllureCLI'
     }
-
     stages {
+        stage('Clean Allure Results') {
+            steps {
+                script {
+                    if (isUnix()) {
+                        sh 'rm -rf allure-results/*'
+                    } else {
+                        bat 'rmdir /s /q allure-results || exit 0'
+                        bat 'mkdir allure-results'
+                    }
+                }
+            }
+        }
         stage('Set Python Environment') {
             steps {
                 script {
-                    // Set environment variable dynamically
                     env.PYTHON = isUnix() ? 'python3' : 'python'
                 }
             }
         }
-
         stage('Checkout') {
             steps {
                 checkout scm
             }
         }
-
         stage('Setup Python environment') {
             steps {
                 script {
@@ -42,25 +49,23 @@ pipeline {
                 }
             }
         }
-
         stage('Run Tests') {
             steps {
                 script {
                     if (isUnix()) {
                         sh '''
                         source venv/bin/activate
-                        pytest --alluredir=allure-results
+                        pytest -v --cache-clear --alluredir=allure-results
                         '''
                     } else {
                         bat """
                         call venv\\Scripts\\activate
-                        pytest --alluredir=allure-results
+                        pytest -v --cache-clear --alluredir=allure-results
                         """
                     }
                 }
             }
         }
-
         stage('Publish Allure Report') {
             steps {
                 allure([

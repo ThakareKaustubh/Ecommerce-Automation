@@ -6,8 +6,8 @@ import allure
 @allure.feature("User Registration")
 @allure.story("New User Signup Flow")
 @allure.severity(allure.severity_level.CRITICAL)
-def test_valid_user_registration(driver_setup, base_url, test_data):
-    user_data = test_data["registration_data"]
+def test_valid_user_registration(driver_setup, base_url, data_test):
+    user_data = data_test["registration_data"]
 
     driver = driver_setup
     driver.get(base_url)
