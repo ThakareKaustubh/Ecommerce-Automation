@@ -10,7 +10,7 @@ from selenium import webdriver
 @pytest.fixture(scope='function')
 def driver_setup():
     chrome_options = Options()
-    # chrome_options.add_argument("--headless")  # Enable headless mode
+    chrome_options.add_argument("--headless")  # Enable headless mode
     chrome_options.add_argument("--disable-gpu")  # Fixes issues in some systems
     chrome_options.add_argument("--window-size=1920x1080")  # Ensure elements are visible
     chrome_options.add_argument("--disable-popup-blocking")  # Disable popup blocking
