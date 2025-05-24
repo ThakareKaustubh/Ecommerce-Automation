@@ -2,6 +2,7 @@ pipeline {
     agent any
     parameters {
         choice(name: 'BROWSER', choices: ['chrome', 'firefox'], description: 'Choose browser')
+        choice(name: 'PARALLEL_EXECUTION', choices: ['yes', 'no'], description: 'Launch parallel tests')
         booleanParam(name: 'HEADLESS', defaultValue: false, description: 'Run tests in headless mode')
     }
     tools {
@@ -58,16 +59,17 @@ pipeline {
         script {
             def headlessOption = params.HEADLESS ? "--headless" : ""
             def browser = params.BROWSER
+            def parallelExecution = params.PARALLEL_EXECUTION ? "-n auto" : ""
 
             if (isUnix()) {
                 sh """
                     source venv/bin/activate
-                    pytest --browser=${browser} ${headlessOption} -v --cache-clear --alluredir=allure-results
+                    pytest --browser=${browser} ${headlessOption} -v --cache-clear --alluredir=allure-results ${parallelExecution}
                 """
             } else {
                 bat """
                     call venv\\Scripts\\activate
-                    pytest --browser=${browser} ${headlessOption} -v --cache-clear --alluredir=allure-results
+                    pytest --browser=${browser} ${headlessOption} -v --cache-clear --alluredir=allure-results ${parallelExecution}
                 """
             }
         }

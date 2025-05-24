@@ -91,9 +91,10 @@ pytest
 2. Run Specific Test Module
 pytest tests/test_login.py
 
-3. Run tests with Allure
-pytest --alluredir=reports/
-
+3. Run tests with Allure - Specify browser== chrome or firefox 
+ pytest tests/test_user_registration.py --browser=chrome --alluredir=allure-results  
+or if you want to run in headless mode use:
+ pytest tests/test_user_registration.py --browser=chrome --headless --alluredir=allure-results  
 Generate and open the report:
 
 allure serve reports/

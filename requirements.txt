@@ -2,6 +2,7 @@ selenium
 pytest
 allure-pytest
 pyyaml
-xdist
+pytest-xdist
 requests
 pytest-order
+pytest-rerunfailures

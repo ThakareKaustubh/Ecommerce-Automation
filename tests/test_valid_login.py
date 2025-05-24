@@ -1,11 +1,15 @@
 import allure
 from pages.login_page import LoginPage
 from utils.create_user_api import create_user_from_api
+import pytest
 
 
 @allure.feature("User Login")
 @allure.story("Valid User login Flow")
 @allure.severity(allure.severity_level.CRITICAL)
+@pytest.mark.smoke
+@pytest.mark.regression
+@pytest.mark.flaky(reruns=2, reruns_delay=2)
 def test_login_using_valid_credentials(driver_setup, base_url):
     valid_email, valid_password, valid_username = create_user_from_api(base_url)
     driver = driver_setup
