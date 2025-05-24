@@ -9,7 +9,7 @@ import pytest
 @allure.severity(allure.severity_level.CRITICAL)
 @pytest.mark.smoke
 @pytest.mark.regression
-@pytest.mark.flaky(reruns=2, reruns_delay=2)
+@pytest.mark.flaky(reruns=2, reruns_delay=4)
 def test_valid_user_registration(driver_setup, base_url, data_test):
     user_data = data_test["registration_data"]
 

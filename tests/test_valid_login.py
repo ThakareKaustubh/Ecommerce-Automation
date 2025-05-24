@@ -9,7 +9,7 @@ import pytest
 @allure.severity(allure.severity_level.CRITICAL)
 @pytest.mark.smoke
 @pytest.mark.regression
-@pytest.mark.flaky(reruns=2, reruns_delay=2)
+@pytest.mark.flaky(reruns=2, reruns_delay=4)
 def test_login_using_valid_credentials(driver_setup, base_url):
     valid_email, valid_password, valid_username = create_user_from_api(base_url)
     driver = driver_setup
