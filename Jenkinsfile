@@ -2,7 +2,10 @@ pipeline {
     agent any
     parameters {
         choice(name: 'BROWSER', choices: ['chrome', 'firefox'], description: 'Choose browser')
-        choice(name: 'PARALLEL_EXECUTION', choices: ['yes', 'no'], description: 'Launch parallel tests')
+        choice(name: 'RE_RUN', choices: ['1', '2', '3', '4', '5'], description: 'Choose number of permissible reruns for failed tests')
+        choice(name: 'RE_RUN_DELAY', choices: ['1', '2', '3', '4', '5'], description: 'Choose number of permissible reruns delay between reruns')
+        booleanParam(name: 'PARALLEL_EXECUTION', defaultValue: false,, description: 'Launch parallel tests')
+        booleanParam(name: 'IS_RE_RUNS', defaultValue: false, description: 'Rerun flaky/failed tests')
         booleanParam(name: 'HEADLESS', defaultValue: false, description: 'Run tests in headless mode')
     }
     tools {
@@ -60,16 +63,17 @@ pipeline {
             def headlessOption = params.HEADLESS ? "--headless" : ""
             def browser = params.BROWSER
             def parallelExecution = params.PARALLEL_EXECUTION ? "-n auto" : ""
+            def isReRun = params.IS_RE_RUNS ? "--reruns ${params.RE_RUN} --reruns-delay ${RE_RUN_DELAY}" : ""
 
             if (isUnix()) {
                 sh """
                     source venv/bin/activate
-                    pytest --browser=${browser} ${headlessOption} -v --cache-clear --alluredir=allure-results ${parallelExecution}
+                    pytest --browser=${browser} ${headlessOption} -v --cache-clear --alluredir=allure-results ${parallelExecution} ${isReRun}
                 """
             } else {
                 bat """
                     call venv\\Scripts\\activate
-                    pytest --browser=${browser} ${headlessOption} -v --cache-clear --alluredir=allure-results ${parallelExecution}
+                    pytest --browser=${browser} ${headlessOption} -v --cache-clear --alluredir=allure-results ${parallelExecution} ${isReRun}
                 """
             }
         }
