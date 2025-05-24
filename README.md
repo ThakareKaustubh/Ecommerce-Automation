@@ -106,3 +106,5 @@ allure serve reports/
 1. pytest.ini: Contains Pytest configurations.
 
 2. config/: Directory for environment-specific settings and configurations.
+
+**End of File**
