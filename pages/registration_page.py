@@ -45,12 +45,16 @@ class RegistrationPage(BasePage):
 
     def verify_name(self, name):
         self.logger.info(f"Verifying name field pre-filled with: {name}")
-        val = self.wait.wait_for_element_to_be_visible(self.reg_name).get_attribute("value")
+        val = self.wait.wait_for_element_to_be_visible(self.reg_name).get_attribute(
+            "value"
+        )
         return val == name
 
     def verify_email(self, email):
         self.logger.info(f"Verifying email field pre-filled with: {email}")
-        val = self.wait.wait_for_element_to_be_visible(self.reg_email).get_attribute("value")
+        val = self.wait.wait_for_element_to_be_visible(self.reg_email).get_attribute(
+            "value"
+        )
         return val == email
 
     def enter_pass(self, password):
@@ -71,15 +75,28 @@ class RegistrationPage(BasePage):
         self.wait.wait_for_element_to_be_clickable(self.chk_box2).click()
         self.logger.info("Selecting checkboxes complete.")
 
-    def enter_address_details(self, fname, lname, company, address1, address2, country_name, state_name, city_name, zip,
-                              mob_number):
+    def enter_address_details(
+        self,
+        fname,
+        lname,
+        company,
+        address1,
+        address2,
+        country_name,
+        state_name,
+        city_name,
+        zip,
+        mob_number,
+    ):
         self.logger.info("Filling address details.")
         self.wait.wait_for_element_to_be_visible(self.first_name).send_keys(fname)
         self.wait.wait_for_element_to_be_visible(self.last_name).send_keys(lname)
         self.wait.wait_for_element_to_be_visible(self.company).send_keys(company)
         self.wait.wait_for_element_to_be_visible(self.address1).send_keys(address1)
         self.wait.wait_for_element_to_be_visible(self.address2).send_keys(address2)
-        Select(self.wait.wait_for_element_to_be_clickable(self.country)).select_by_value(country_name)
+        Select(
+            self.wait.wait_for_element_to_be_clickable(self.country)
+        ).select_by_value(country_name)
         self.wait.wait_for_element_to_be_visible(self.state).send_keys(state_name)
         self.wait.wait_for_element_to_be_visible(self.city).send_keys(city_name)
         self.wait.wait_for_element_to_be_visible(self.zip_code).send_keys(zip)
@@ -93,7 +110,10 @@ class RegistrationPage(BasePage):
 
     def verify_account_created(self):
         self.logger.info("Verifying 'Account Created!' confirmation.")
-        return self.wait.wait_for_element_to_be_visible(self.verify_complete).text == 'ACCOUNT CREATED!'
+        return (
+            self.wait.wait_for_element_to_be_visible(self.verify_complete).text
+            == "ACCOUNT CREATED!"
+        )
 
     def continue_post_reg(self):
         self.logger.info("Clicking continue post successfully account creation.")

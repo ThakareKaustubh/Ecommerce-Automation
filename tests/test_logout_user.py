@@ -4,6 +4,7 @@ from utils.create_user_api import create_user_from_api
 from utils.delete_user_api import delete_user_from_api
 import pytest
 
+
 @allure.feature("User Logout")
 @allure.story("Valid User logout Flow")
 @allure.severity(allure.severity_level.CRITICAL)
@@ -19,7 +20,9 @@ def test_user_logout(driver_setup, base_url):
 
     with allure.step("Navigate to login/signup page"):
         loginpage.goto_login_signup_page()
-        assert loginpage.verify_login_to_acc_is_visible(), "Login to your account not visible"
+        assert (
+            loginpage.verify_login_to_acc_is_visible()
+        ), "Login to your account not visible"
 
     with allure.step("Entering valid credentials"):
         loginpage.enter_username(valid_email)
@@ -27,9 +30,13 @@ def test_user_logout(driver_setup, base_url):
         loginpage.submit_login()
 
     with allure.step("Verify logged-in username"):
-        assert valid_username == loginpage.check_logged_in_user(), "Login username mismatch"
+        assert (
+            valid_username == loginpage.check_logged_in_user()
+        ), "Login username mismatch"
 
     with allure.step("Logout of the session"):
         loginpage.click_logout_btn()
-        assert loginpage.verify_login_to_acc_is_visible(), "Login to your account not visible"
-        delete_user_from_api(base_url,valid_email, valid_password)
+        assert (
+            loginpage.verify_login_to_acc_is_visible()
+        ), "Login to your account not visible"
+        delete_user_from_api(base_url, valid_email, valid_password)

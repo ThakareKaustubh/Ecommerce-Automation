@@ -21,7 +21,9 @@ def test_login_using_valid_credentials(driver_setup, base_url):
 
     with allure.step("Navigate to login/signup page"):
         loginpage.goto_login_signup_page()
-        assert loginpage.verify_login_to_acc_is_visible(), "Login to your account not visible"
+        assert (
+            loginpage.verify_login_to_acc_is_visible()
+        ), "Login to your account not visible"
 
     with allure.step("Entering valid credentials"):
         loginpage.enter_username(valid_email)
@@ -29,7 +31,9 @@ def test_login_using_valid_credentials(driver_setup, base_url):
         loginpage.submit_login()
 
     with allure.step("Verify logged-in username"):
-        assert valid_username == loginpage.check_logged_in_user(), "Login username mismatch"
+        assert (
+            valid_username == loginpage.check_logged_in_user()
+        ), "Login username mismatch"
 
     with allure.step("Verify and delete account"):
         loginpage.delete_created_account()

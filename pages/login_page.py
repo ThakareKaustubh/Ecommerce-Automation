@@ -19,9 +19,18 @@ class LoginPage(BasePage):
         self.submit_reg = (By.XPATH, "//button[@data-qa = 'signup-button']")
         self.home_heading = (By.XPATH, "//a[contains(text(), 'Home')]")
         self.verify_page = (By.XPATH, "//h2[contains(text(), 'New User Signup!')]")
-        self.verify_submit_reg = (By.XPATH, "//b[contains(text(),'Enter Account Information')]")
-        self.login_page_load = (By.XPATH, "//h2[contains(text(), 'Login to your account')]")
-        self.invalid_login_msg = (By.XPATH, "//p[contains(text(),'Your email or password is incorrect!')]")
+        self.verify_submit_reg = (
+            By.XPATH,
+            "//b[contains(text(),'Enter Account Information')]",
+        )
+        self.login_page_load = (
+            By.XPATH,
+            "//h2[contains(text(), 'Login to your account')]",
+        )
+        self.invalid_login_msg = (
+            By.XPATH,
+            "//p[contains(text(),'Your email or password is incorrect!')]",
+        )
 
     def check_page_load(self):
         try:
@@ -69,25 +78,34 @@ class LoginPage(BasePage):
 
     def verify_new_user_signup(self):
         self.logger.info("Verifying 'New User Signup!' page load.")
-        return self.wait.wait_for_element_presence(self.verify_page).text == "New User Signup!"
+        return (
+            self.wait.wait_for_element_presence(self.verify_page).text
+            == "New User Signup!"
+        )
 
     def verify_registration_submit_text(self):
         self.logger.info("Verifying 'Enter Account Information' on submit registration")
 
-        return self.wait.wait_for_element_to_be_clickable(self.verify_submit_reg).text == "ENTER ACCOUNT INFORMATION"
+        return (
+            self.wait.wait_for_element_to_be_clickable(self.verify_submit_reg).text
+            == "ENTER ACCOUNT INFORMATION"
+        )
 
     def verify_login_to_acc_is_visible(self):
         self.logger.info("Verifying 'Login to account' is visible")
-        return self.wait.wait_for_element_presence(self.login_page_load).text == "Login to your account"
+        return (
+            self.wait.wait_for_element_presence(self.login_page_load).text
+            == "Login to your account"
+        )
 
     def get_invalid_creds(self):
-        local = ''.join(random.choices(string.ascii_lowercase + string.digits, k=8))
-        domain = ''.join(random.choices(string.ascii_lowercase, k=5))
-        tld = random.choice(['com', 'net', 'org', 'io', 'co'])
+        local = "".join(random.choices(string.ascii_lowercase + string.digits, k=8))
+        domain = "".join(random.choices(string.ascii_lowercase, k=5))
+        tld = random.choice(["com", "net", "org", "io", "co"])
         email = f"{local}@{domain}.{tld}"
 
         password_chars = string.ascii_letters + string.digits + string.punctuation
-        password = ''.join(random.choices(password_chars, k=12))
+        password = "".join(random.choices(password_chars, k=12))
 
         return email, password
 

@@ -6,12 +6,23 @@ from utils.config_loader import load_config
 from utils.driver_factory import DriverFactory
 
 
-
 def pytest_addoption(parser):
-    parser.addoption("--browser", action="store", default="chrome", help="Browser to use: chrome or firefox")
+    parser.addoption(
+        "--browser",
+        action="store",
+        default="chrome",
+        help="Browser to use: chrome or firefox",
+    )
     parser.addoption("--headless", action="store_true", help="Run in headless mode")
+    parser.addoption(
+        "--env",
+        action="store",
+        default="qa",
+        help="Environment to run tests against: qa/staging/prod",
+    )
 
-@pytest.fixture(scope='function')
+
+@pytest.fixture(scope="function")
 def driver_setup(request):
     browser = request.config.getoption("--browser")
     headless = request.config.getoption("--headless")
@@ -28,11 +39,11 @@ def pytest_runtest_makereport(item, call):
     result = outcome.get_result()
 
     if result.when == "call" and result.failed:
-        driver = item.funcargs['driver_setup']
+        driver = item.funcargs["driver_setup"]
         allure.attach(
             driver.get_screenshot_as_png(),
             name="screenshot_on_failure",
-            attachment_type=allure.attachment_type.PNG
+            attachment_type=allure.attachment_type.PNG,
         )
 
 
@@ -50,7 +61,7 @@ def base_url(config):
 def data_test():
     # Load the data from the YAML file
     current_dir = os.path.dirname(__file__)
-    config_path = os.path.join(current_dir, '..', 'config', 'data_test.yaml')
+    config_path = os.path.join(current_dir, "..", "config", "data_test.yaml")
     config_path = os.path.abspath(config_path)
     with open(config_path, "r") as file:
         return yaml.safe_load(file)

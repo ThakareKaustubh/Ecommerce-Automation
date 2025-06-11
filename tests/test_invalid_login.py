@@ -15,7 +15,9 @@ def test_login_using_invalid_credentials(driver_setup, base_url):
 
     with allure.step("Navigate to login/signup page"):
         loginpage.goto_login_signup_page()
-        assert loginpage.verify_login_to_acc_is_visible(), "Login to your account not visible"
+        assert (
+            loginpage.verify_login_to_acc_is_visible()
+        ), "Login to your account not visible"
 
     with allure.step("Entering invalid credentials"):
         invalid_email, invalid_password = loginpage.get_invalid_creds()

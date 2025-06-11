@@ -4,8 +4,10 @@ import requests
 
 
 def load_registration_data():
-    file_path = os.path.join(os.path.dirname(__file__), '..', 'config', 'login_test.yaml')
-    with open(file_path, 'r') as file:
+    file_path = os.path.join(
+        os.path.dirname(__file__), "..", "config", "login_test.yaml"
+    )
+    with open(file_path, "r") as file:
         return yaml.safe_load(file)["login_data"]
 
 
@@ -29,13 +31,16 @@ def create_user_from_api(url):
         "state": data["address"]["state"],
         "city": data["address"]["city"],
         "mobile_number": data["address"]["mobile_number"],
-        "form_type": "create_account"
+        "form_type": "create_account",
     }
 
     response = requests.post(f"{url}/api/createAccount", data=payload)
+    # print(response.json())
     if response.json()["responseCode"] == 201:
         return data["email"], data["password"], data["username"]
 
     elif response.status_code != 200:
         raise Exception(f"User creation failed: {response.text}")
 
+
+# create_user_from_api("https://www.automationexercise.com/")

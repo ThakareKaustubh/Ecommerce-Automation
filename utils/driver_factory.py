@@ -2,6 +2,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options as ChromeOptions
 from selenium.webdriver.firefox.options import Options as FirefoxOptions
 
+
 class DriverFactory:
     @staticmethod
     def get_driver(browser_name="chrome", headless=False):
@@ -10,10 +11,18 @@ class DriverFactory:
             if headless:
                 options.add_argument("--headless")
                 options.add_argument("--disable-gpu")
-                options.add_argument("--window-size=1920x1080")  # Ensure elements are visible
-                options.add_argument("--disable-popup-blocking")  # Disable popup blocking
-                options.add_argument("--no-sandbox")  # Bypass OS security (useful in Docker)
-                options.add_argument("--disable-dev-shm-usage")  # Prevent shared memory issues
+                options.add_argument(
+                    "--window-size=1920x1080"
+                )  # Ensure elements are visible
+                options.add_argument(
+                    "--disable-popup-blocking"
+                )  # Disable popup blocking
+                options.add_argument(
+                    "--no-sandbox"
+                )  # Bypass OS security (useful in Docker)
+                options.add_argument(
+                    "--disable-dev-shm-usage"
+                )  # Prevent shared memory issues
                 options.add_argument("--use-angle=default")
                 options.add_argument("--start-maximised")
             return webdriver.Chrome(options=options)

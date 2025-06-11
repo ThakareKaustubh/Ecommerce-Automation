@@ -10,7 +10,10 @@ class BasePage:
         self.wait = WaitUtils(driver, timeout=10)
         self.home_page = (By.XPATH, "//a[normalize-space()='Home']")
         self.products_page = (By.XPATH, "//a[@href='/products']")
-        self.cart_page = (By.XPATH, "//a[@href='/view_cart' and contains(., 'Cart')][1]")
+        self.cart_page = (
+            By.XPATH,
+            "//a[@href='/view_cart' and contains(., 'Cart')][1]",
+        )
         self.login_signup = (By.XPATH, "//a[contains(text(), 'Signup / Login')]")
         self.verify_logged_user = (By.XPATH, "//a[contains(text(), 'Logged in as')]/b")
         self.del_acc = (By.CSS_SELECTOR, "a[href='/delete_account']")
@@ -43,7 +46,10 @@ class BasePage:
 
     def scroll_to_element(self, element):
         self.logger.info(f"Scrolling to {element}...")
-        self.driver.execute_script("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", element)
+        self.driver.execute_script(
+            "arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});",
+            element,
+        )
 
     def scroll_until_visible(self, locator):
         element = self.wait.wait_for_element_to_be_visible(locator)
@@ -64,9 +70,14 @@ class BasePage:
 
     def delete_account_confirmation(self):
         self.logger.info("Confirming account deleted")
-        return self.wait.wait_for_element_to_be_visible(self.del_cnf).text == "ACCOUNT DELETED!"
+        return (
+            self.wait.wait_for_element_to_be_visible(self.del_cnf).text
+            == "ACCOUNT DELETED!"
+        )
 
     def click_logout_btn(self):
         self.logger.info("Clicking on the logout button.")
         self.wait.wait_for_element_to_be_clickable(self.logout_btn).click()
         self.logger.info("Clicked logout.")
+
+
