@@ -4,7 +4,7 @@ pipeline {
         choice(name: 'BROWSER', choices: ['chrome', 'firefox'], description: 'Choose browser')
         choice(name: 'RE_RUN', choices: ['1', '2', '3', '4', '5'], description: 'Choose number of permissible reruns for failed tests')
         choice(name: 'RE_RUN_DELAY', choices: ['1', '2', '3', '4', '5'], description: 'Choose number of permissible reruns delay between reruns')
-        booleanParam(name: 'PARALLEL_EXECUTION', defaultValue: false,, description: 'Launch parallel tests')
+        booleanParam(name: 'PARALLEL_EXECUTION', defaultValue: false, description: 'Launch parallel tests')
         booleanParam(name: 'IS_RE_RUNS', defaultValue: false, description: 'Rerun flaky/failed tests')
         booleanParam(name: 'HEADLESS', defaultValue: false, description: 'Run tests in headless mode')
     }
