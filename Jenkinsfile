@@ -1,5 +1,6 @@
 pipeline {
     agent any
+
     parameters {
         choice(name: 'BROWSER', choices: ['chrome', 'firefox'], description: 'Choose browser')
         choice(name: 'RE_RUN', choices: ['1', '2', '3', '4', '5'], description: 'Choose number of permissible reruns for failed tests')
@@ -8,9 +9,11 @@ pipeline {
         booleanParam(name: 'IS_RE_RUNS', defaultValue: false, description: 'Rerun flaky/failed tests')
         booleanParam(name: 'HEADLESS', defaultValue: true, description: 'Run tests in headless mode')
     }
+
     tools {
         allure 'AllureCLI'
     }
+
     stages {
         stage('Clean Allure Results') {
             steps {
@@ -24,6 +27,7 @@ pipeline {
                 }
             }
         }
+
         stage('Set Python Environment') {
             steps {
                 script {
@@ -31,11 +35,13 @@ pipeline {
                 }
             }
         }
+
         stage('Checkout') {
             steps {
                 checkout scm
             }
         }
+
         stage('Setup Python environment') {
             steps {
                 script {
@@ -57,28 +63,30 @@ pipeline {
                 }
             }
         }
-       stage('Run Tests with Allure') {
-    steps {
-        script {
-            def headlessOption = params.HEADLESS ? "--headless" : ""
-            def browser = params.BROWSER
-            def parallelExecution = params.PARALLEL_EXECUTION ? "-n auto" : ""
-            def isReRun = params.IS_RE_RUNS ? "--reruns ${params.RE_RUN} --reruns-delay ${RE_RUN_DELAY}" : ""
 
-            if (isUnix()) {
-                sh """
-                    source venv/bin/activate
-                    pytest --browser=${browser} ${headlessOption} -v --cache-clear --alluredir=allure-results ${parallelExecution} ${isReRun}
-                """
-            } else {
-                bat """
-                    call venv\\Scripts\\activate
-                    pytest --browser=${browser} ${headlessOption} -v --cache-clear --alluredir=allure-results ${parallelExecution} ${isReRun}
-                """
+        stage('Run Tests with Allure') {
+            steps {
+                script {
+                    def headlessOption = params.HEADLESS ? "--headless" : ""
+                    def browser = params.BROWSER
+                    def parallelExecution = params.PARALLEL_EXECUTION ? "-n auto" : ""
+                    def isReRun = params.IS_RE_RUNS ? "--reruns ${params.RE_RUN} --reruns-delay ${params.RE_RUN_DELAY}" : ""
+
+                    if (isUnix()) {
+                        sh """
+                            source venv/bin/activate
+                            pytest --browser=${browser} ${headlessOption} -v --cache-clear --alluredir=allure-results ${parallelExecution} ${isReRun}
+                        """
+                    } else {
+                        bat """
+                            call venv\\Scripts\\activate
+                            pytest --browser=${browser} ${headlessOption} -v --cache-clear --alluredir=allure-results ${parallelExecution} ${isReRun}
+                        """
+                    }
+                }
             }
         }
-    }
-}
+
         stage('Publish Allure Report') {
             steps {
                 allure([
@@ -86,6 +94,19 @@ pipeline {
                     results: [[path: 'allure-results']]
                 ])
             }
+        }
+    }
+
+    post {
+        always {
+            echo 'Cleaning workspace...'
+            cleanWs()
+        }
+        success {
+            echo 'Tests passed!'
+        }
+        failure {
+            echo 'Tests failed!'
         }
     }
 }
