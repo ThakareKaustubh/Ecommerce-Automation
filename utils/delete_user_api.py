@@ -9,4 +9,3 @@ def delete_user_from_api(url, email, passwd):
 
     elif response.status_code != 200:
         raise Exception(f"User creation failed: {response.text}")
-

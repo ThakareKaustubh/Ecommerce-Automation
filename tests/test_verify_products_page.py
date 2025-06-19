@@ -6,8 +6,8 @@ from utils.delete_user_api import delete_user_from_api
 import pytest
 
 
-@allure.feature("User Login")
-@allure.story("Valid User login Flow")
+@allure.feature("Veirfy Product Page")
+@allure.story("Products Page")
 @allure.severity(allure.severity_level.CRITICAL)
 @pytest.mark.smoke
 @pytest.mark.regression

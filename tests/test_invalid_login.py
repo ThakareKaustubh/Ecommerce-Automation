@@ -3,7 +3,7 @@ from pages.login_page import LoginPage
 
 
 @allure.feature("User Login")
-@allure.story("Invalid User login Flow")
+@allure.story("Invalid Login flow")
 @allure.severity(allure.severity_level.CRITICAL)
 def test_login_using_invalid_credentials(driver_setup, base_url):
     driver = driver_setup

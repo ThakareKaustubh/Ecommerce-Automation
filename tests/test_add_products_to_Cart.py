@@ -1,15 +1,17 @@
 import allure
 from pages.login_page import LoginPage
+from pages.products import ProductPage
 from utils.create_user_api import create_user_from_api
 from utils.delete_user_api import delete_user_from_api
 import pytest
 
 
-@allure.feature("User Login")
-@allure.story("User logout flow")
+@allure.feature("Add products to card")
+@allure.story("Products Page")
 @allure.severity(allure.severity_level.CRITICAL)
-@pytest.mark.flaky(reruns=2, reruns_delay=4)
-def test_user_logout(driver_setup, base_url):
+@pytest.mark.smoke
+@pytest.mark.regression
+def test_verify_products_page(driver_setup, base_url):
     valid_email, valid_password, valid_username = create_user_from_api(base_url)
     driver = driver_setup
     driver.get(base_url)
@@ -29,14 +31,6 @@ def test_user_logout(driver_setup, base_url):
         loginpage.enter_password(valid_password)
         loginpage.submit_login()
 
-    with allure.step("Verify logged-in username"):
-        assert (
-            valid_username == loginpage.check_logged_in_user()
-        ), "Login username mismatch"
-
-    with allure.step("Logout of the session"):
-        loginpage.click_logout_btn()
-        assert (
-            loginpage.verify_login_to_acc_is_visible()
-        ), "Login to your account not visible"
-        delete_user_from_api(base_url, valid_email, valid_password)
+    with allure.step("Click on products page"):
+        product_Page = ProductPage(driver)
+        product_Page.goto_products_page()

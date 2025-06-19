@@ -6,7 +6,7 @@ pipeline {
         choice(name: 'RE_RUN_DELAY', choices: ['1', '2', '3', '4', '5'], description: 'Choose number of permissible reruns delay between reruns')
         booleanParam(name: 'PARALLEL_EXECUTION', defaultValue: false, description: 'Launch parallel tests')
         booleanParam(name: 'IS_RE_RUNS', defaultValue: false, description: 'Rerun flaky/failed tests')
-        booleanParam(name: 'HEADLESS', defaultValue: false, description: 'Run tests in headless mode')
+        booleanParam(name: 'HEADLESS', defaultValue: true, description: 'Run tests in headless mode')
     }
     tools {
         allure 'AllureCLI'

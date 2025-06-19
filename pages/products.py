@@ -56,7 +56,6 @@ class ProductPage(BasePage):
             curr_url = self.driver.current_url
             self.logger.info(f"{curr_url}")
             if curr_url.endswith("product_details/1"):
-                self.logger.info("sdvdfvsrfv")
                 if (
                         self.wait.wait_for_element_to_be_visible(self.product_name)
                         and self.wait.wait_for_element_to_be_visible(self.product_category)

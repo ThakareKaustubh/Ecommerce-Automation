@@ -5,7 +5,7 @@ import pytest
 
 
 @allure.feature("User Login")
-@allure.story("Valid User login Flow")
+@allure.story("Valid user login flow")
 @allure.severity(allure.severity_level.CRITICAL)
 @pytest.mark.smoke
 @pytest.mark.regression

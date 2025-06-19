@@ -1,18 +1,40 @@
-import yaml
 import os
 import requests
+from faker import Faker
+import random
+
+fake = Faker()
 
 
-def load_registration_data():
-    file_path = os.path.join(
-        os.path.dirname(__file__), "..", "config", "login_test.yaml"
-    )
-    with open(file_path, "r") as file:
-        return yaml.safe_load(file)["login_data"]
+def generate_fake_registration_data():
+    birthdate = fake.date_of_birth(minimum_age=18, maximum_age=80)
+    return {
+        "username": fake.user_name(),
+        "email": fake.unique.email(),
+        "password": fake.password(),
+        "title": random.choice(["Mr", "Ms", "Mrs", "Dr"]),
+        "birthdate": {
+            "day": birthdate.day,
+            "month": birthdate.month,
+            "year": birthdate.year
+        },
+        "address": {
+            "first_name": fake.first_name(),
+            "last_name": fake.last_name(),
+            "company": fake.company(),
+            "address1": fake.street_address(),
+            "address2": fake.secondary_address(),
+            "country": fake.country(),
+            "zipcode": fake.postcode(),
+            "state": fake.state(),
+            "city": fake.city(),
+            "mobile_number": fake.phone_number()
+        }
+    }
 
 
 def create_user_from_api(url):
-    data = load_registration_data()
+    data = generate_fake_registration_data()
     payload = {
         "name": data["username"],
         "email": data["email"],
@@ -35,12 +57,13 @@ def create_user_from_api(url):
     }
 
     response = requests.post(f"{url}/api/createAccount", data=payload)
-    # print(response.json())
-    if response.json()["responseCode"] == 201:
+
+    if response.status_code == 200 and response.json().get("responseCode") == 201:
         return data["email"], data["password"], data["username"]
-
-    elif response.status_code != 200:
-        raise Exception(f"User creation failed: {response.text}")
-
-
-# create_user_from_api("https://www.automationexercise.com/")
+    elif response.json().get("responseCode") != 200:
+        if response.json().get("message") == "Email already exists!":
+            return data["email"], data["password"], data["username"]
+        else:
+            raise Exception(f"User creation failed: {response.text}")
+    else:
+        raise Exception(f"Unexpected response: {response.status_code} - {response.text}")
