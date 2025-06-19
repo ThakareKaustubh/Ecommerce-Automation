@@ -86,11 +86,6 @@ pipeline {
                     results: [[path: 'allure-results']]
                 ])
             }
-
-            stage('Archive Artifacts') {
-                steps {
-                    archiveArtifacts artifacts: 'logs/*.txt, screenshots/*.png', allowEmptyArchive: true
-            }
         }
     }
 }
