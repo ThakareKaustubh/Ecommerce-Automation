@@ -79,19 +79,13 @@ pipeline {
         }
     }
 }
-stage('Publish Allure Report') {
+        stage('Publish Allure Report') {
             steps {
                 allure([
                     reportBuildPolicy: 'ALWAYS',
                     results: [[path: 'allure-results']]
                 ])
             }
-
-            stage('Archive Artifacts') {
-                steps {
-                    archiveArtifacts artifacts: 'logs/*.txt, screenshots/*.png', allowEmptyArchive: true
-            }
         }
     }
-  }
 }
