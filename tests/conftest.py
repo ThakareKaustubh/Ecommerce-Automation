@@ -31,21 +31,19 @@ def driver_setup(request):
     yield driver
     driver.quit()
 
-
-@pytest.hookimpl(tryfirst=True, hookwrapper=True)
-@pytest.hookimpl(hookwrapper=True)
+@pytest.hookimpl(hookwrapper=True, tryfirst=True)
 def pytest_runtest_makereport(item, call):
     outcome = yield
     result = outcome.get_result()
 
     if result.when == "call" and result.failed:
-        driver = item.funcargs["driver_setup"]
-        allure.attach(
-            driver.get_screenshot_as_png(),
-            name="screenshot_on_failure",
-            attachment_type=allure.attachment_type.PNG,
-        )
-
+        driver = item.funcargs.get("driver_setup")
+        if driver:
+            allure.attach(
+                driver.get_screenshot_as_png(),
+                name=f"screenshot_{item.name}",
+                attachment_type=allure.attachment_type.PNG,
+            )
 
 @pytest.fixture(scope="session")
 def config():
